@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
+import Spinner from 'react-bootstrap/Spinner';
 import { useRouter } from 'next/router';
 import { fetchApi } from '@/utils/fetchApi';
 import { parseDate } from '@/utils/date';
@@ -22,7 +23,9 @@ const Page = () => {
   return (
     <main className="container py-3">
       {isLoading ?
-        <div>Loading</div>
+        <div aria-hidden="true" className="d-flex min-calc-navmain">
+          <Spinner animation="border" variant="primary" className="m-auto" />
+        </div>
         :
         error || data?.message ? 
           <Alert variant="danger">{data?.message}</Alert>
@@ -38,12 +41,12 @@ const Page = () => {
                   className="img-thumbnail"
                 />
               </div>
-              <div className="flex-grow-1 ms-3">
+              <div className="flex-grow-1 h5 mb-0 ms-3">
                 {owner}
               </div>
             </div>
 
-            <h5>{repoName}</h5>
+            <h1>{repoName}</h1>
             <p className="lead">{data.description}</p>
 
             <dl className="row gx-0 small">
@@ -71,11 +74,24 @@ const Page = () => {
                 </>
               )}
 
-              {Array.isArray(data.topics) && (
+              {!!data?.topics?.length && (
                 <>
                   <dt className="col-sm-2">Topics</dt>
                   <dd className="col-sm-10 d-flex flex-wrap gap-1">
-                    {data.topics.map((item: string) => <Badge key={item} as="a" href={`https://github.com/topics/${item}`} pill bg="info" target="_blank" rel="noopener noreferrer" className="text-decoration-none">{item}</Badge>)}
+                    {data.topics.map((item: string) => 
+                      <Badge
+                        key={item}
+                        as="a"
+                        href={`https://github.com/topics/${item}`}
+                        pill
+                        bg="info"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-decoration-none"
+                      >
+                        {item}
+                      </Badge>
+                    )}
                   </dd>
                 </>
               )}
@@ -89,16 +105,16 @@ const Page = () => {
 
               <Button size="sm" as="a" href={data.svn_url} target="_blank" rel="noopener noreferrer">Repository</Button>
               
-              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto">
+              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Watch ${data.watchers_count}`}>
                 Watch <Badge>{data.watchers_count ? numShort(data.watchers_count) : 0}</Badge>
               </Button>
-              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto">
+              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Fork ${data.forks_count}`}>
                 Fork <Badge>{data.forks_count ? numShort(data.forks_count) : 0}</Badge>
               </Button>
-              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto">
+              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Starred ${data.stargazers_count}`}>
                 Starred <Badge>{data.stargazers_count ? numShort(data.stargazers_count) : 0}</Badge>
               </Button>
-              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto">
+              <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Issues ${data.open_issues_count}`}>
                 Issues <Badge>{data.open_issues_count ? numShort(data.open_issues_count) : 0}</Badge>
               </Button>
             </div>

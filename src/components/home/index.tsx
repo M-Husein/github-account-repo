@@ -39,13 +39,38 @@ export default function Home() {
     </>
   )
 
+  if(isLoading){
+    return (
+      <div className="row row-gap-4" aria-hidden="true">
+        {Array.from({ length: 12 }).map((v: any, idx: number) =>
+          <div key={idx} className="col-md-3">
+            <Card className="shadow-sm">
+              <Card.Body>
+                <Card.Title className="placeholder-glow">
+                  <span className="placeholder col-6" />
+                </Card.Title>
+                <Card.Text className="placeholder-glow">
+                  <span className="placeholder col-9" />
+                </Card.Text>
+                <div className="mt-auto">
+                  <Button disabled size="sm" variant="outline-primary" className="placeholder col-3" />{' '}
+                  <Button disabled size="sm" className="placeholder col-4" />
+                </div>
+              </Card.Body>
+            </Card>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <>
       {error || data?.message && (
         <Alert variant="danger">{data?.message}</Alert>
       )}
 
-      {Array.isArray(data) ?
+      {Array.isArray(data) && (
         data.length ?
           <>
             <div className="d-flex flex-wrap row-gap-3 align-items-center py-3">
@@ -60,7 +85,7 @@ export default function Home() {
                       className="img-thumbnail"
                     />
                   </div>
-                  <div className="flex-grow-1 ms-3">
+                  <div className="flex-grow-1 h5 mb-0 ms-3">
                     {data[0].owner.login}
                   </div>
                 </div>
@@ -164,28 +189,6 @@ export default function Home() {
           </>
           :
           <div>No have repositories</div>
-        :
-        isLoading && (
-          <div className="row row-gap-4">
-            {Array.from({ length: 12 }).map((v: any, idx: number) =>
-              <div key={idx} className="col-md-3">
-                <Card className="shadow-sm">
-                  <Card.Body>
-                    <Card.Title className="placeholder-glow">
-                      <span className="placeholder col-6" />
-                    </Card.Title>
-                    <Card.Text className="placeholder-glow">
-                      <span className="placeholder col-9" />
-                    </Card.Text>
-                    <div className="mt-auto">
-                      <Button disabled size="sm" variant="outline-primary" className="placeholder col-3" />{' '}
-                      <Button disabled size="sm" className="placeholder col-4" />
-                    </div>
-                  </Card.Body>
-                </Card>
-              </div>
-            )}
-          </div>
         )
       }
     </>

@@ -25,12 +25,12 @@ export default function NavMain(){
             
             <Dropdown className="nav-item">
               <Dropdown.Toggle as="button" className="nav-link btn" id="dropdown-basic">
-                More
+                Info
               </Dropdown.Toggle>
               <Dropdown.Menu className="shadow-sm">
-                <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                <Dropdown.Item href="https://github.com/M-Husein" target="_blank" rel="noopener noreferrer">Github Profile</Dropdown.Item>
                 <Dropdown.Divider />
-                <Dropdown.Item href="#/action-3">Something</Dropdown.Item>
+                <Dropdown.Item href="https://github.com/M-Husein/github-account-repo" target="_blank" rel="noopener noreferrer">Repository</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Nav>

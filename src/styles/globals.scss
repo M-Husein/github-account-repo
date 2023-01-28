@@ -166,24 +166,4 @@ $utilities: map-merge(
 // Utilities
 @import "bootstrap/scss/utilities/api";
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-}
-
-.flex-none {
-  flex: none;
-}
-
-.line-clamp {
-  --q-clamp: 2; // OPTION
-  overflow: hidden;
-  display: block;
-  -webkit-line-clamp: var(--q-clamp);
-  // display: box;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
-  white-space: normal;
-}
+@import './custom.scss';
