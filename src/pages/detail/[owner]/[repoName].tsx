@@ -13,10 +13,7 @@ import LayoutMain from '@/components/layout';
 const Page = () => {
   const router = useRouter();
   const {owner, repoName} = router.query;
-  // https://api.github.com/repos/${owner}/${repoName} | /dummy/detail.json
-  const { data, error, isLoading } = useSWR(`/dummy/detail.json`, fetchApi);
-  console.log('data: ', data);
-  console.log('router: ', router);
+  const { data, error, isLoading } = useSWR(`https://api.github.com/repos/${owner}/${repoName}`, fetchApi);
 
   const renderTime = (date: string, prefix?: string) => (
     date && <time dateTime={date}>{prefix}{parseDate(date)}</time>

@@ -15,10 +15,7 @@ import { parseDate } from '@/utils/date';
 export default function Home() {
   const [viewMode, setViewMode] = useState<string>('card');
   const [direction, setDirection] = useState<string>('asc');
-  // facebook | M-Husein
-  // https://api.github.com/users/facebook/repos?per_page=12 | /dummy/repos.json
-  const { data, error, isLoading } = useSWR(`/dummy/repos.json?direction=${direction}`, fetchApi);
-  // console.log('data: ', data);
+  const { data, error, isLoading } = useSWR(`https://api.github.com/users/facebook/repos?per_page=12&direction=${direction}`, fetchApi);
 
   const renderCreatedAt = (date: string, prefix?: string) => (
     date && <time dateTime={date} className="small">{prefix}{parseDate(date)}</time>
@@ -191,8 +188,6 @@ export default function Home() {
           </div>
         )
       }
-
-      {/* {Array.from({ length: 30 }).map((v: any, idx: number) => <p key={idx}>Dummy {idx + 1}</p>)} */}
     </>
   )
 }

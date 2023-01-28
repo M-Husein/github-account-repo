@@ -25,7 +25,7 @@ export default function NavMain(){
             
             <Dropdown className="nav-item">
               <Dropdown.Toggle as="button" className="nav-link btn" id="dropdown-basic">
-                Dropdown
+                More
               </Dropdown.Toggle>
               <Dropdown.Menu className="shadow-sm">
                 <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
