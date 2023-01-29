@@ -1,15 +1,17 @@
-import type { ReactNode } from "react";
+import { type ReactNode } from "react";
 import Head from 'next/head';
+import { Provider } from "react-redux";
+import store from "@/store/store";
 import NavMain from "./NavMain";
 
 interface Props {
   children?: ReactNode
-  title?: string,
+  title?: string
 }
 
 const LayoutMain = ({ children, title }: Props) => {
   return (
-    <>
+    <Provider store={store}>
       <Head>
         <title>{title}</title>
       </Head>
@@ -17,7 +19,7 @@ const LayoutMain = ({ children, title }: Props) => {
       <NavMain />
 
       {children}
-    </>
+    </Provider>
   );
 };
   

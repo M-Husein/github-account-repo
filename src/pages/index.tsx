@@ -1,6 +1,11 @@
 import { type ReactElement } from 'react';
+import dynamic from 'next/dynamic';
 import Home from '@/components/home';
-import LayoutMain from '@/components/layout';
+// import LayoutMain from '@/components/layout';
+
+const LayoutMain = dynamic(() => import('../components/layout'), {
+  ssr: false,
+});
 
 const Page = () => {
   return (

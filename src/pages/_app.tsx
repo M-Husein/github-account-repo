@@ -11,8 +11,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  // Use the layout defined at the page level, if available
+export default function App({ Component, pageProps }: AppPropsWithLayout){
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return getLayout(

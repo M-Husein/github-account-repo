@@ -6,15 +6,17 @@ import Button from 'react-bootstrap/Button';
 import Badge from 'react-bootstrap/Badge';
 import Spinner from 'react-bootstrap/Spinner';
 import { useRouter } from 'next/router';
+import { BsGithub, BsLink45Deg, BsEye, BsStar } from "react-icons/bs";
 import { fetchApi } from '@/utils/fetchApi';
 import { parseDate } from '@/utils/date';
 import { numShort } from '@/utils/numShort';
+import { GITHUB } from '@/config/API';
 import LayoutMain from '@/components/layout';
 
 const Page = () => {
   const router = useRouter();
   const {owner, repoName} = router.query;
-  const { data, error, isLoading } = useSWR(`https://api.github.com/repos/${owner}/${repoName}`, fetchApi);
+  const { data, error, isLoading } = useSWR(`${GITHUB}/repos/${owner}/${repoName}`, fetchApi);
 
   const renderTime = (date: string, prefix?: string) => (
     date && <time dateTime={date}>{prefix}{parseDate(date)}</time>
@@ -100,19 +102,23 @@ const Page = () => {
 
             <div className="d-flex flex-wrap gap-2">
               {data.homepage && (
-                <Button size="sm" as="a" href={data.homepage} target="_blank" rel="noopener noreferrer">Homepage</Button>
+                <Button size="sm" as="a" href={data.homepage} target="_blank" rel="noopener noreferrer">
+                  <BsLink45Deg /> Homepage
+                </Button>
               )}
 
-              <Button size="sm" as="a" href={data.svn_url} target="_blank" rel="noopener noreferrer">Repository</Button>
+              <Button size="sm" as="a" href={data.svn_url} target="_blank" rel="noopener noreferrer">
+                <BsGithub /> Repository
+              </Button>
               
               <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Watch ${data.watchers_count}`}>
-                Watch <Badge>{data.watchers_count ? numShort(data.watchers_count) : 0}</Badge>
+                <BsEye /> Watch <Badge>{data.watchers_count ? numShort(data.watchers_count) : 0}</Badge>
               </Button>
               <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Fork ${data.forks_count}`}>
                 Fork <Badge>{data.forks_count ? numShort(data.forks_count) : 0}</Badge>
               </Button>
               <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Starred ${data.stargazers_count}`}>
-                Starred <Badge>{data.stargazers_count ? numShort(data.stargazers_count) : 0}</Badge>
+                <BsStar /> Starred <Badge>{data.stargazers_count ? numShort(data.stargazers_count) : 0}</Badge>
               </Button>
               <Button disabled size="sm" variant="outline-primary" className="pe-auto opacity-100 cursor-auto" title={`Issues ${data.open_issues_count}`}>
                 Issues <Badge>{data.open_issues_count ? numShort(data.open_issues_count) : 0}</Badge>
