@@ -139,7 +139,12 @@ export default function Home() {
                     <Card className="h-100 shadow-sm">
                       <Card.Body className="d-flex flex-column align-items-baseline">
                         <Card.Title>
-                          <Link href={`/detail/${item.owner.login}/${item.name}`} className={`text-decoration-none link-${isDarkMode ? 'light':'dark'}`}>{item.name}</Link>
+                          <Link
+                            href={`/detail/${item.owner.login}/${item.name}`}
+                            className={`text-decoration-none link-${isDarkMode ? 'light':'dark'}`}
+                          >
+                            {item.name}
+                          </Link>
                         </Card.Title>
                         <Card.Text className="line-clamp">
                           {item.description}
@@ -163,7 +168,7 @@ export default function Home() {
                   <col width="50" />
                   <col />
                   <col />
-                  <col width="160" />
+                  <col width="190" />
                 </colgroup>
                 <thead>
                   <tr>
@@ -178,7 +183,12 @@ export default function Home() {
                     <tr key={item.id}>
                       <td>{idx + 1}</td>
                       <td>
-                        <Link href={`/detail/${item.owner.login}/${item.name}`} className={`text-decoration-none link-${isDarkMode ? 'light':'dark'}`}>{item.name}</Link>
+                        <Link
+                          href={`/detail/${item.owner.login}/${item.name}`}
+                          className={`text-decoration-none link-${isDarkMode ? 'light':'dark'}`}
+                        >
+                          {item.name}
+                        </Link>
                       </td>
                       <td>
                         {renderCreatedAt(item.created_at)}
